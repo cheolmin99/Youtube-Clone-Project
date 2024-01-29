@@ -12,6 +12,17 @@ export default class Youtube {
         .then((res) => res.data.items[0].snippet.thumbnails.default.url);
     }
 
+    async commentThreads(id) {
+        return this.apiClient.commentThreads({
+            params: {
+                part: 'snippet',
+                type: 'text',
+                videoId: id
+            }
+        })
+        .then((res) => res.data.item.map((item) => ({...item, id: item.id.videoId})))
+    }
+
     async relatedVideos(id) {
         return this.apiClient.search({
             params: {

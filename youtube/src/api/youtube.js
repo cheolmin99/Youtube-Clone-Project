@@ -16,11 +16,11 @@ export default class Youtube {
         return this.apiClient.commentThreads({
             params: {
                 part: 'snippet',
-                type: 'text',
-                videoId: id
+                videoId: id,
+                maxResults: 25,
             }
         })
-        .then((res) => res.data.item.map((item) => ({...item, id: item.id.videoId})))
+        .then((res) => res.data.items.map((item) => ({...item.snippet.topLevelComment.snippet})))
     }
 
     async relatedVideos(id) {
